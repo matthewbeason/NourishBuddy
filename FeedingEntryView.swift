@@ -25,6 +25,7 @@ struct FeedingEntryView: View {
     ]
     
     @State private var showingAdd = false
+    @State private var showingAddChooser = false
     @State private var newDate = Date()
     @State private var volumeText = ""
     @State private var selectedKind = Kinds.formula
@@ -97,7 +98,7 @@ struct FeedingEntryView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showingAdd = true
+                        showingAddChooser = true
                     } label: {
                         Label("Add", systemImage: "plus")
                     }
@@ -116,6 +117,41 @@ struct FeedingEntryView: View {
                     saveAction: { saveNewEntry() },
                     showDuplicateAlert: $showDuplicateAlert
                 )
+            }
+            .sheet(isPresented: $showingAddChooser) {
+                AddEntrySheet(
+                    feedingContent: {
+                        // Reuse the existing feeding add sheet content with embedded: true
+                        AddFeedingSheet(
+                            isPresented: $showingAdd,
+                            newDate: $newDate,
+                            volumeText: $volumeText,
+                            selectedKind: $selectedKind,
+                            notesText: $notesText,
+                            kindDisplay: kindDisplay,
+                            parsedVolume: parsedVolume,
+                            saveAction: { saveNewEntry() },
+                            showDuplicateAlert: $showDuplicateAlert,
+                            embedded: true
+                        )
+                    },
+                    careContent: {
+                        // Use CareAddWrapper to handle dismissal and saving
+                        CareAddWrapper(slots: ["None", "AM", "PM", "Night"]) { task, slot, date, note, itemName in
+                            let context = viewContext
+                            let newEvent = CareEventEntity(context: context)
+                            newEvent.id = UUID()
+                            newEvent.date = date
+                            newEvent.task = task
+                            newEvent.slot = slot == "None" ? nil : slot
+                            newEvent.note = note.isEmpty ? nil : note
+                            newEvent.itemName = (itemName?.isEmpty == false) ? itemName : nil
+                            try? context.save()
+                        }
+                    }
+                )
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
             }
         }
     }
@@ -206,54 +242,101 @@ struct FeedingEntryView: View {
         let kindDisplay: [String: String]
         let parsedVolume: Double?
         let saveAction: () -> Void
+        let embedded: Bool
         @Binding var showDuplicateAlert: Bool
+        @Environment(\.dismiss) var dismiss
+
+        init(
+            isPresented: Binding<Bool>,
+            newDate: Binding<Date>,
+            volumeText: Binding<String>,
+            selectedKind: Binding<String>,
+            notesText: Binding<String>,
+            kindDisplay: [String: String],
+            parsedVolume: Double?,
+            saveAction: @escaping () -> Void,
+            showDuplicateAlert: Binding<Bool>,
+            embedded: Bool = false
+        ) {
+            self._isPresented = isPresented
+            self._newDate = newDate
+            self._volumeText = volumeText
+            self._selectedKind = selectedKind
+            self._notesText = notesText
+            self.kindDisplay = kindDisplay
+            self.parsedVolume = parsedVolume
+            self.saveAction = saveAction
+            self._showDuplicateAlert = showDuplicateAlert
+            self.embedded = embedded
+        }
 
         var body: some View {
             // Local computed values to keep the ViewBuilder simple
             let pv: Double? = parsedVolume
             let isSaveEnabled: Bool = (pv ?? 0) > 0
 
-            return NavigationStack {
-                Form {
-                    // DatePicker
-                    DatePicker("Date", selection: $newDate, displayedComponents: [.date, .hourAndMinute])
+            // Build the form content once
+            let formContent = Form {
+                // DatePicker
+                DatePicker("Date", selection: $newDate, displayedComponents: [.date, .hourAndMinute])
 
-                    // Volume field and quick buttons
-                    TextField("Volume (oz)", text: $volumeText)
-                        .keyboardType(.decimalPad)
-                    HStack {
-                        ForEach([2, 3, 4, 5, 6, 8], id: \.self) { v in
-                            Button("\(v)") {
-                                volumeText = "\(v)"
-                            }
-                            .buttonStyle(.bordered)
+                // Volume field and quick buttons
+                TextField("Volume (oz)", text: $volumeText)
+                    .keyboardType(.decimalPad)
+                HStack {
+                    ForEach([2, 3, 4, 5, 6, 8], id: \.self) { v in
+                        Button("\(v)") {
+                            volumeText = "\(v)"
                         }
+                        .buttonStyle(.bordered)
                     }
-
-                    // Kind segmented control
-                    Picker("Type", selection: $selectedKind) {
-                        Text("Formula").tag(Kinds.formula)
-                        Text("Water").tag(Kinds.water)
-                        Text("Flush").tag(Kinds.flush)
-                    }
-                    .pickerStyle(.segmented)
-
-                    // Notes
-                    TextField("Notes (optional)", text: $notesText)
                 }
-                .navigationTitle("New Feeding")
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") {
-                            isPresented = false
+
+                // Kind segmented control
+                Picker("Type", selection: $selectedKind) {
+                    Text("Formula").tag(Kinds.formula)
+                    Text("Water").tag(Kinds.water)
+                    Text("Flush").tag(Kinds.flush)
+                }
+                .pickerStyle(.segmented)
+
+                // Notes
+                TextField("Notes (optional)", text: $notesText)
+            }
+
+            // Return different wrappers depending on embedded
+            if embedded {
+                formContent
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") { dismiss() }
+                        }
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Save") {
+                                saveAction()
+                                dismiss()
+                            }
+                            .disabled(!isSaveEnabled)
                         }
                     }
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Save") {
-                            saveAction()
-                        }
-                        .disabled(!isSaveEnabled)
+                    .alert("Duplicate entry", isPresented: $showDuplicateAlert) {
+                        Button("OK", role: .cancel) {}
+                    } message: {
+                        Text("An entry with the same time, volume, and type already exists.")
                     }
+            } else {
+                NavigationStack {
+                    formContent
+                        .navigationTitle("New Feeding")
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Cancel") { isPresented = false }
+                            }
+                            ToolbarItem(placement: .confirmationAction) {
+                                Button("Save") { saveAction() }
+                                .disabled(!isSaveEnabled)
+                            }
+                        }
                 }
                 .alert("Duplicate entry", isPresented: $showDuplicateAlert) {
                     Button("OK", role: .cancel) {}
@@ -261,6 +344,23 @@ struct FeedingEntryView: View {
                     Text("An entry with the same time, volume, and type already exists.")
                 }
             }
+        }
+    }
+
+    private struct CareAddWrapper: View {
+        @Environment(\.dismiss) var dismiss
+        let slots: [String]
+        let save: (_ task: String, _ slot: String, _ date: Date, _ note: String, _ itemName: String?) -> Void
+        var body: some View {
+            AddCareEventSheet(
+                slots: slots,
+                onSave: { t, s, d, n, i in
+                    save(t, s, d, n, i)
+                    dismiss()
+                },
+                onCancel: { dismiss() },
+                embedded: true
+            )
         }
     }
 }

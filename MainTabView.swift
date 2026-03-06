@@ -17,6 +17,11 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Summary", systemImage: "gauge.with.dots.needle.33percent")
                 }
+            
+            CareLogView()
+                .tabItem {
+                    Label("Care", systemImage: "checklist")
+                }
         }
     }
 }

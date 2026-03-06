@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		421E5A112F4E6EEC00EFE895 /* CareLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E5A102F4E6EEC00EFE895 /* CareLogView.swift */; };
+		421E5A142F4FCFEB00EFE895 /* AddEntrySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E5A132F4FCFEB00EFE895 /* AddEntrySheet.swift */; };
+		421E5A162F5675DB00EFE895 /* EditDailyGoalSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E5A152F5675DB00EFE895 /* EditDailyGoalSheet.swift */; };
+		421E5A182F5675DD00EFE895 /* EditBaselinePlanSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E5A172F5675DD00EFE895 /* EditBaselinePlanSheet.swift */; };
 		425A37E72DC833C400539A45 /* ContentView 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425A37E62DC833C400539A45 /* ContentView 2.swift */; };
 		425A38192DC8353D00539A45 /* EntryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425A38132DC8353D00539A45 /* EntryForm.swift */; };
 		425A381B2DC8353D00539A45 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425A38112DC8353D00539A45 /* DashboardViewModel.swift */; };
@@ -29,7 +33,7 @@
 		4288C5AA2F4E495600484F52 /* FeedingEntryModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4288C5A82F4E495600484F52 /* FeedingEntryModel.xcdatamodeld */; };
 		4288C5AB2F4E495700484F52 /* FeedingEntryModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4288C5A82F4E495600484F52 /* FeedingEntryModel.xcdatamodeld */; };
 		4288C5AC2F4E495700484F52 /* FeedingEntryModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4288C5A82F4E495600484F52 /* FeedingEntryModel.xcdatamodeld */; };
-		428D85F82E17557C0015B5D7 /* PersisrenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428D85F72E17557C0015B5D7 /* PersisrenceController.swift */; };
+		428D85F82E17557C0015B5D7 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428D85F72E17557C0015B5D7 /* PersistenceController.swift */; };
 		428D85FA2E1755AC0015B5D7 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428D85F92E1755AC0015B5D7 /* MainTabView.swift */; };
 		428D85FC2E17564A0015B5D7 /* FeedingEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428D85FB2E17564A0015B5D7 /* FeedingEntryView.swift */; };
 		428D85FE2E1756790015B5D7 /* FeedingVolumeChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428D85FD2E1756790015B5D7 /* FeedingVolumeChart.swift */; };
@@ -54,6 +58,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		421E5A102F4E6EEC00EFE895 /* CareLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareLogView.swift; sourceTree = "<group>"; };
+		421E5A132F4FCFEB00EFE895 /* AddEntrySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntrySheet.swift; sourceTree = "<group>"; };
+		421E5A152F5675DB00EFE895 /* EditDailyGoalSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDailyGoalSheet.swift; sourceTree = "<group>"; };
+		421E5A172F5675DD00EFE895 /* EditBaselinePlanSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBaselinePlanSheet.swift; sourceTree = "<group>"; };
 		425A37E12DC833C400539A45 /* Nourish Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nourish Buddy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		425A37E62DC833C400539A45 /* ContentView 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView 2.swift"; sourceTree = "<group>"; };
 		425A37F22DC833C500539A45 /* Nourish BuddyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Nourish BuddyTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +73,7 @@
 		425A38152DC8353D00539A45 /* RingChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingChartView.swift; sourceTree = "<group>"; };
 		425A38162DC8353D00539A45 /* StatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCard.swift; sourceTree = "<group>"; };
 		4288C5A92F4E495600484F52 /* FeedingEntryModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FeedingEntryModel.xcdatamodel; sourceTree = "<group>"; };
-		428D85F72E17557C0015B5D7 /* PersisrenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersisrenceController.swift; sourceTree = "<group>"; };
+		428D85F72E17557C0015B5D7 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		428D85F92E1755AC0015B5D7 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		428D85FB2E17564A0015B5D7 /* FeedingEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingEntryView.swift; sourceTree = "<group>"; };
 		428D85FD2E1756790015B5D7 /* FeedingVolumeChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedingVolumeChart.swift; sourceTree = "<group>"; };
@@ -134,13 +142,17 @@
 				428D85FB2E17564A0015B5D7 /* FeedingEntryView.swift */,
 				428D85FD2E1756790015B5D7 /* FeedingVolumeChart.swift */,
 				428D85FF2E17569D0015B5D7 /* HealthSummaryRing.swift */,
-				428D85F72E17557C0015B5D7 /* PersisrenceController.swift */,
+				428D85F72E17557C0015B5D7 /* PersistenceController.swift */,
 				428D85F92E1755AC0015B5D7 /* MainTabView.swift */,
 				425A38182DC8353D00539A45 /* Sources */,
 				425A37E32DC833C400539A45 /* Nourish Buddy */,
 				425A37F52DC833C500539A45 /* Nourish BuddyTests */,
 				425A37FF2DC833C500539A45 /* Nourish BuddyUITests */,
 				425A37E22DC833C400539A45 /* Products */,
+				421E5A102F4E6EEC00EFE895 /* CareLogView.swift */,
+				421E5A132F4FCFEB00EFE895 /* AddEntrySheet.swift */,
+				421E5A152F5675DB00EFE895 /* EditDailyGoalSheet.swift */,
+				421E5A172F5675DD00EFE895 /* EditBaselinePlanSheet.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -321,17 +333,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				421E5A162F5675DB00EFE895 /* EditDailyGoalSheet.swift in Sources */,
 				428D85FE2E1756790015B5D7 /* FeedingVolumeChart.swift in Sources */,
 				428D85FC2E17564A0015B5D7 /* FeedingEntryView.swift in Sources */,
+				421E5A112F4E6EEC00EFE895 /* CareLogView.swift in Sources */,
 				428D86002E17569D0015B5D7 /* HealthSummaryRing.swift in Sources */,
+				421E5A142F4FCFEB00EFE895 /* AddEntrySheet.swift in Sources */,
 				425A38192DC8353D00539A45 /* EntryForm.swift in Sources */,
 				425A381B2DC8353D00539A45 /* DashboardViewModel.swift in Sources */,
 				425A381C2DC8353D00539A45 /* NourishBuddyApp.swift in Sources */,
+				421E5A182F5675DD00EFE895 /* EditBaselinePlanSheet.swift in Sources */,
 				425A381D2DC8353D00539A45 /* RingChartView.swift in Sources */,
 				425A381E2DC8353D00539A45 /* StatCard.swift in Sources */,
 				4288C5AC2F4E495700484F52 /* FeedingEntryModel.xcdatamodeld in Sources */,
 				428D85FA2E1755AC0015B5D7 /* MainTabView.swift in Sources */,
-				428D85F82E17557C0015B5D7 /* PersisrenceController.swift in Sources */,
+				428D85F82E17557C0015B5D7 /* PersistenceController.swift in Sources */,
 				425A381F2DC8353D00539A45 /* Entry.swift in Sources */,
 				425A37E72DC833C400539A45 /* ContentView 2.swift in Sources */,
 			);
